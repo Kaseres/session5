@@ -9,7 +9,6 @@ function WalletConnect() {
     try {
       if (!ethereum) return alert("Please install metamask");
       const provider = await ethereum.request({ method: "eth_requestAccounts" });
-      
       const web3 = new Web3(provider);
       
       if(web3){
@@ -35,3 +34,4 @@ function WalletConnect() {
   );
 }
 export default WalletConnect;
+

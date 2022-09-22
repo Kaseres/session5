@@ -7,21 +7,17 @@ function SetNumberContract() {
   const [number, setNumber] = useState(0);
 
   const onSetNumber = async () => {
-    try {
-        const provider = new ethers.providers.Web3Provider(ethereum, "any");
-        const signer = provider.getSigner();
-        const contract = new ethers.Contract(
-            '0x86B4254dE2f7c7E85D68C129fac688544Ce0D9a1', 
-            CallABI, 
-            signer 
-        );
+    const provider = new ethers.providers.Web3Provider(ethereum, "any");
+    const signer = provider.getSigner();
+    
+    const contract = new ethers.Contract(
+        '0x86B4254dE2f7c7E85D68C129fac688544Ce0D9a1', 
+        CallABI, 
+        signer 
+    );
 
-        let response = await contract.setNumber( number );
-        await response.wait();
-        
-    } catch (error) {
-        console.log(error)
-    }
+    let response = await contract.setNumber( number );
+    await response.wait();
     
   };
 

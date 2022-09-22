@@ -17,12 +17,12 @@ function ErrorGetBalance() {
       signer 
     );
     
-    const response = await contract.getBalacne(); 
+    const contractBalance = await contract.getBalance(); 
     
-    const contractBalance = ethers.utils.formatUnits(response);
-    console.log('response',response)
-    console.log('contractBalance',contractBalance)
-    setBalance(contractBalance)
+    const convertBalance = ethers.utils.formatUnits(contractBalance);
+    console.log('response',contractBalance);
+    console.log('contractBalance',convertBalance);
+    setBalance(convertBalance);
     
   };
 

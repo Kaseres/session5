@@ -8,9 +8,11 @@ function BalanceWallet() {
 
   const getBalance = async () => {
     const provider = new ethers.providers.Web3Provider(ethereum, "any");
-    const accounts = await provider.send("eth_requestAccounts", []);
-    const getBalanceWallet = await provider.getBalance(accounts[0]);
-    const convertBalance = ethers.utils.formatEther(getBalanceWallet);
+    const signer = provider.getSigner();
+    const address = signer.getAddress();
+    
+    const balanceWallet = await provider.getBalance(address);
+    const convertBalance = ethers.utils.formatEther(balanceWallet);
 
     setBalance(convertBalance);
   };

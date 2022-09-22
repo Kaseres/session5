@@ -7,15 +7,11 @@ function GetAddress() {
   const [walletAddress, setWalletAddress] = useState("");
 
   const showAddress = async () => {
-    try {
-      const provider = new ethers.providers.Web3Provider(ethereum);
-      const accounts = await provider.send("eth_requestAccounts", []);
-      setWalletAddress(accounts[0]);   
-    } catch (error) {
-      console.log(error);
-
-      throw new Error("No ethereum object.");
-    }
+    const provider = new ethers.providers.Web3Provider(ethereum, "any");
+    const signer = provider.getSigner();
+    const address = await signer.getAddress();
+    
+    setWalletAddress(address);  
   };
 
   return (

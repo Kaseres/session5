@@ -10,9 +10,9 @@ function WalletConnect() {
     try {
       if (!ethereum) return alert("Please install metamask");
       const provider = new ethers.providers.Web3Provider(ethereum);
-      const accounts = await provider.send("eth_requestAccounts", []);
+      const connect = await provider.send("eth_requestAccounts", []);
       
-      if(accounts){
+      if(connect){
         setIsConnect(1);
       }
     } catch (error) {

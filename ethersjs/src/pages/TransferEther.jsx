@@ -7,23 +7,19 @@ function TransferEthers() {
   const [amount, setAmount] = useState(0);
 
   const sendEthers = async () => {
-    try {
-        const provider = new ethers.providers.Web3Provider(ethereum, "any");
-        const signer = provider.getSigner();
-        const contract = new ethers.Contract(
-            '0x86B4254dE2f7c7E85D68C129fac688544Ce0D9a1', 
-            CallABI, 
-            signer 
-        );
-        
-        const response = await contract.transferEther( 
-          { value: ethers.utils.parseEther(amount) } 
-        );
-        await response.wait();
-        
-    } catch (error) {
-        console.log(error)
-    }
+    const provider = new ethers.providers.Web3Provider(ethereum, "any");
+    const signer = provider.getSigner();
+    
+    const contract = new ethers.Contract(
+        '0x86B4254dE2f7c7E85D68C129fac688544Ce0D9a1', 
+        CallABI, 
+        signer 
+    );
+    
+    const response = await contract.transferEther( 
+      { value: ethers.utils.parseEther(amount) } 
+    );
+    await response.wait();
     
   };
 

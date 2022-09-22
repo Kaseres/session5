@@ -1,6 +1,7 @@
 
 import { Fragment } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import './App.css';
 
 import WalletConnect from './pages/WalletConnect';
 import BalanceWallet from './pages/BalanceWallet';

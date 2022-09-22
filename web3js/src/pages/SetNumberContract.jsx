@@ -2,26 +2,13 @@ import { useState } from 'react';
 import Web3 from "web3";
 import CallABI from '../utils/CallABI.json'
 
-function BalanceContract() {
+const { ethereum } = window;
+function SetNumberContract() {
 
   const [number, setNumberAmount] = useState(0);
 
-  const detectCurrentProvider = () => {
-    let provider;
-    if (window.ethereum) {
-      provider = window.ethereum;
-    } else if (window.web3) {
-      provider = window.web3.currentProvider;
-    } else {
-      console.log("Non-ethereum browser detected. You should install Metamask");
-    }
-    return provider;
-  };
-
   const onSetNumber = async () => {
-    const currentProvider = detectCurrentProvider();
-    await currentProvider.request({ method: "eth_requestAccounts" });
-    const web3 = new Web3(currentProvider);
+    const web3 = new Web3(ethereum);
 
     const contract = new web3.eth.Contract(
       CallABI, 
@@ -49,4 +36,4 @@ function BalanceContract() {
 
 }
 
-export default BalanceContract;
+export default SetNumberContract;

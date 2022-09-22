@@ -1,37 +1,19 @@
 import { useState } from 'react';
 import Web3 from "web3";
 
+const { ethereum } = window;
 function GetAddress() {
   const [walletAddress, setWalletAddress] = useState("");
 
-  const detectCurrentProvider = () => {
-    let provider;
-    if (window.ethereum) {
-      provider = window.ethereum;
-    } else if (window.web3) {
-      provider = window.web3.currentProvider;
-    } else {
-      console.log("Non-ethereum browser detected. You should install Metamask");
-    }
-    return provider;
-  };
-
   const showAddress = async () => {
-    try {
-      const currentProvider = detectCurrentProvider();
-      await currentProvider.request({ method: "eth_requestAccounts" });
-      const web3 = new Web3(currentProvider);
-      const accounts = await web3.eth.getAccounts();
-      setWalletAddress(accounts[0]);
-    } catch (error) {
-      console.log(error);
+    const web3 = new Web3(ethereum);
+    const accounts = await web3.eth.getAccounts();
 
-      throw new Error("No ethereum object");
-    }
+    setWalletAddress(accounts[0]);
   };
 
   return (
-    <div>
+    <div className="App">
         {!walletAddress ? (
         <button onClick={showAddress} >Show Address</button>
         ) : (

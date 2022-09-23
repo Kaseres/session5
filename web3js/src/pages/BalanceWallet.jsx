@@ -3,7 +3,6 @@ import Web3 from "web3";
 
 const { ethereum } = window;
 function BalanceWallet() {
-
   const [balance, setBalance] = useState(0);
 
   const getBalance = async () => {
@@ -11,7 +10,11 @@ function BalanceWallet() {
     const accounts = await web3.eth.getAccounts();
 
     const balanceWallet = await web3.eth.getBalance(accounts[0]);
+    
+    // convert wei to ether
     const convertBalance = web3.utils.fromWei(balanceWallet, "ether");
+    console.log('balanceWallet',balanceWallet,'convertBalance',convertBalance);
+
     setBalance(convertBalance);
   };
 
@@ -24,7 +27,6 @@ function BalanceWallet() {
         )}
     </div>
   );
-
 }
 
 export default BalanceWallet;

@@ -4,7 +4,6 @@ import CallABI from '../utils/CallABI.json'
 
 const { ethereum } = window;
 function BalanceContract() {
-
   const [balance, setBalance] = useState(0);
 
   const getBalanceContract = async () => {
@@ -13,10 +12,12 @@ function BalanceContract() {
     const contract = new web3.eth.Contract(
       CallABI, 
       '0x86B4254dE2f7c7E85D68C129fac688544Ce0D9a1'
-    )
-    const contractBalance = await contract.methods.getBalance().call(); 
+    );
 
+    const contractBalance = await contract.methods.getBalance().call(); 
     const convertBalance = web3.utils.fromWei(contractBalance, "ether");
+    console.log('contract',contract,'contractBalance',contractBalance,'convertBalance',convertBalance);
+
     setBalance(convertBalance);
   };
 
@@ -29,7 +30,6 @@ function BalanceContract() {
         )}
     </div>
   );
-
 }
 
 export default BalanceContract;

@@ -26,12 +26,11 @@ function WalletConnect() {
         {!isConnect ? (
         <button onClick={connectWallet} >Connect Wallet</button>
         ) : (
-          <>
-            <h3>You Connect: Connected</h3>
-          </>
+          <h3>You Connect: Connected</h3>
         )}
     </div>
   );
 }
+
 export default WalletConnect;
 

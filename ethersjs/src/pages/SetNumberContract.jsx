@@ -5,8 +5,12 @@ import CallABI from '../utils/CallABI.json'
 const { ethereum } = window;
 function SetNumberContract() {
   const [number, setNumber] = useState(0);
+  const [sendSuccess, setSendSuccess] = useState(false);
+  const [writeBlockSuccess, setWriteBlockSuccess] = useState(false);
 
   const onSetNumber = async () => {
+    setSendSuccess(false);
+    setWriteBlockSuccess(false);
     const provider = new ethers.providers.Web3Provider(ethereum, "any");
     const signer = provider.getSigner();
     
@@ -16,9 +20,11 @@ function SetNumberContract() {
         signer 
     );
 
-    let response = await contract.setNumber( number );
-    await response.wait();
+    const response = await contract.setNumber( number );
+    setSendSuccess(true);
     
+    await response.wait();
+    setWriteBlockSuccess(true);
   };
 
   const inputNumber = (e) => {
@@ -27,14 +33,12 @@ function SetNumberContract() {
 
   return (
     <div className="App">
-            <input placeholder="Number" name="number" type="number" 
-            onChange={inputNumber} value={number} 
-            />
-            <button type="submit" onClick={onSetNumber} >Set Number</button>
-        
+      <input placeholder="Number" name="number" type="number" onChange={inputNumber} value={number} />
+      <button type="submit" onClick={onSetNumber} >Set Number</button>
+      {sendSuccess ? <div>Update value to : {number}</div> : null }
+      {writeBlockSuccess ? <div>Update value success</div> : null }
     </div>
   );
-
 }
 
 export default SetNumberContract;

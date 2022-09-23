@@ -10,6 +10,7 @@ function GetAddress() {
     const provider = new ethers.providers.Web3Provider(ethereum, "any");
     const signer = provider.getSigner();
     const address = await signer.getAddress();
+    console.log('signer', signer, 'address',address);
     
     setWalletAddress(address);  
   };

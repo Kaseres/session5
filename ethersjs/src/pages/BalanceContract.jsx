@@ -4,7 +4,6 @@ import CallABI from '../utils/CallABI.json'
 
 const { ethereum } = window;
 function BalanceContract() {
-
   const [balance, setBalance] = useState(0);
 
   const getBalanceContract = async () => {
@@ -19,6 +18,7 @@ function BalanceContract() {
     
     const contractBalance = await contract.getBalance(); 
     const convertBalance = ethers.utils.formatUnits(contractBalance);
+    console.log('contract',contract,'contractBalance',contractBalance,'convertBalance',convertBalance);
     
     setBalance(convertBalance);
   };
@@ -32,7 +32,6 @@ function BalanceContract() {
         )}
     </div>
   );
-
 }
 
 export default BalanceContract;

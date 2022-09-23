@@ -5,8 +5,12 @@ import CallABI from '../utils/CallABI.json'
 const { ethereum } = window;
 function TransferEthers() {
   const [amount, setAmount] = useState(0);
+  const [sendSuccess, setSendSuccess] = useState(false);
+  const [writeBlockSuccess, setWriteBlockSuccess] = useState(false);
 
   const sendEthers = async () => {
+    setSendSuccess(false);
+    setWriteBlockSuccess(false);
     const provider = new ethers.providers.Web3Provider(ethereum, "any");
     const signer = provider.getSigner();
     
@@ -19,8 +23,10 @@ function TransferEthers() {
     const response = await contract.transferEther( 
       { value: ethers.utils.parseEther(amount) } 
     );
-    await response.wait();
+    setSendSuccess(true);
     
+    await response.wait();
+    setWriteBlockSuccess(true);
   };
 
   const inputAmount = (e) => {
@@ -29,9 +35,10 @@ function TransferEthers() {
 
   return (
     <div className="App">
-            <input placeholder="Amount (ETH):" name="amount" type="number" onChange={inputAmount} value={amount} />
-            <button type="submit" onClick={sendEthers} >Send Amount</button>
-        
+      <input placeholder="Amount (ETH):" name="amount" type="number" onChange={inputAmount} value={amount} />
+      <button type="submit" onClick={sendEthers} >Send Amount</button>
+      {sendSuccess ? <div>Send value {amount} to contract</div> : null }
+      {writeBlockSuccess ? <div>Update value success</div> : null }
     </div>
   );
 

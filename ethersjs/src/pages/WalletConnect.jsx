@@ -3,7 +3,6 @@ import { ethers } from 'ethers';
 
 const { ethereum } = window;
 function WalletConnect() {
-
   const [isConnect, setIsConnect] = useState(0);
 
   const connectWallet = async () => {
@@ -31,7 +30,6 @@ function WalletConnect() {
         )}
     </div>
   );
-
 }
 
 export default WalletConnect;
